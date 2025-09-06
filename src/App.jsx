@@ -1,11 +1,11 @@
-import MoviesList from "./components/MoviesList"
+import Main from "./components/Main"
 
 function App() {
 
   return (
     <div className="container">
       <div className="row">
-        <MoviesList />
+        <Main />
       </div>
     </div>
   )
