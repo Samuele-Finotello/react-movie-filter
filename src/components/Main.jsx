@@ -31,11 +31,14 @@ const Main = () => {
 
   const [selection, setSelection] = useState('');
   const [filterSelection, setFilterSelection] = useState(movies)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     if (selection !== '') {
       const filteredMovies = movies.filter(movie => {
-        movie['genre'] === selection;
+        return (
+          movie['genre'] === selection
+        )
       })
       console.log(filteredMovies)
       setFilterSelection(filteredMovies);
@@ -43,8 +46,21 @@ const Main = () => {
     else {
       setFilterSelection(movies)
     }
-
   }, [selection])
+
+  useEffect(() => {
+    if (search !== '') {
+      const filterSearch = movies.filter(movie => {
+        return (
+          movie['title'].toLowerCase().includes(search.toLowerCase())
+        )
+      })
+      setFilterSelection(filterSearch)
+    }
+    else {
+      setFilterSelection(movies)
+    }
+  }, [search])
 
   return (
     <div className="col-12">
@@ -52,6 +68,9 @@ const Main = () => {
       <form className="mt-5 d-flex" onSubmit={(e) => {
         e.preventDefault();
       }} >
+        <input type="text" className="form-control me-4 fs-4" value={search} placeholder="Cerca titolo film" onChange={(e) => {
+          setSearch(e.target.value)
+        }} />
         <select name="" id="" value={selection} className="form-select fs-4" onChange={(e) => {
           setSelection(e.target.value)
         }}>
